@@ -15,8 +15,8 @@ jobs:
     timeout-minutes: 10                  # Stop the job if it runs longer than 10 minutes
 
     env:  # Set secrets as environment variables
-      API_KEY: ${{ secrets.TELEGRAM_BOT_TOKEN }}
-      DB_PASSWORD: ${{ secrets.CHAT_ID }}
+      TELEGRAM_BOT_TOKEN : ${{ secrets.TELEGRAM_BOT_TOKEN }}
+      CHAT_ID : ${{ secrets.CHAT_ID }}
 
 
     steps:

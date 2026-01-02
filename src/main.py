@@ -1,14 +1,12 @@
 import json
-from os import getenv
+from os
 from urllib.parse import urlparse
 
 import requests
-from dotenv import load_dotenv
 
-load_dotenv()
 
-TELEGRAM_BOT_TOKEN = getenv("TELEGRAM_BOT_TOKEN")
-CHAT_ID = getenv("CHAT_ID")
+TELEGRAM_BOT_TOKEN = os.environ("TELEGRAM_BOT_TOKEN")
+CHAT_ID = os.environ("CHAT_ID")
 
 headers = {
     "User-Agent": (

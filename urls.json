@@ -1,28 +1,35 @@
 {
 "urls": [
     {
+        "description": "Wrong shirt Price Drops",
         "url": "https://www.myntra.com/shirts/wrogn/wrogn-men-navy-blue-slim-fit-striped-casual-shirt/13673098/buy",
         "value": "599"
     },
     {
+        "description": "shein jeans Price Drops",
         "url":"https://www.ajio.com/shein-shein-full-length-fly-with-button-closure-mid-wash-jeans/p/443381647_charcoal?",
         "value": "600"
     },
     {
+        "description": "Apple news",
         "url": "https://news.google.com/topics/CAAqKggKIiRDQkFTRlFvSUwyMHZNRGRqTVhZU0JXVnVMVWRDR2dKSlRpZ0FQAQ?hl=en-IN&gl=IN&ceid=IN%3Aen",
-        "keyword": "bitcoin"
+        "keyword": "apple"
     },
     {
+        "description": "Google Pixel 9a Price",
         "url": "https://www.flipkart.com/google-pixel-9a-porcelain-256-gb/p/itmfe749ceddac9a?pid=MOBH9YME35EYPV4K&lid=LSTMOBH9YME35EYPV4K5K7UZW&otracker=CLP_BannerX3&fm=organic&ppt=hp&ppn=homepage&ssid=euzw0y6p9wuimrr41767272299463",
-        "value": "600"
+        "value": "39,999"
     },
     {
+        "description": "",
         "url": "https://www.amazon.in/London-Hills-Tapered-Slimfit-Durable/dp/B0FMFGJVJP/?_encoding=UTF8&pd_rd_w=2816u&content-id=amzn1.sym.47226dd1-3657-494d-8578-f5621c2124b3&pf_rd_p=47226dd1-3657-494d-8578-f5621c2124b3&pf_rd_r=Y2GYA0KCXQ0QMYZSH010&pd_rd_wg=zfXv7&pd_rd_r=7cf7186e-43f0-451d-b1ae-73494eee15f7&ref_=pd_hp_d_atf_dealz_cs&th=1&psc=1",
         "value": "600"
+
     },
     {
+        "description": "News on FreeBSD",
         "url": "https://news.ycombinator.com",
-        "keyword": "asml"
+        "keyword": "freebsd"
 
     }
     ]

@@ -12,9 +12,6 @@ on:
 jobs:
   python-job:                            # Name of the job
     runs-on: ubuntu-latest               # Use latest Ubuntu runner
-    defaults:
-      run:
-        working-directory: src
     timeout-minutes: 10                  # Stop the job if it runs longer than 10 minutes
 
     env:  # Set secrets as environment variables

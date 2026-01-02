@@ -1,11 +1,8 @@
+import json
 import re
+from urllib.parse import urlparse
 
 import requests
-
-urls = [
-    "https://www.myntra.com/shirts/wrogn/wrogn-men-navy-blue-slim-fit-striped-casual-shirt/13673098/buy",
-    "https://www.ajio.com/shein-shein-full-length-fly-with-button-closure-mid-wash-jeans/p/443381647_charcoal?",
-]
 
 headers = {
     "User-Agent": (
@@ -18,16 +15,32 @@ headers = {
     "Referer": "https://google.com",
 }
 
+urls = []
 
-def crawl(url):
-    website = re.search(r"https:\/\/www\.(.*?)\.com\/", url)
+
+def ReadJSON(file):
+    try:
+        with open(file, "r") as file:
+            data = json.load(file)
+            for i, data in enumerate(data["urls"]):
+                url = data["url"]
+                if data.get("value"):
+                    value = data["value"]
+                    return {"url": url, "value": value}
+                else:
+                    keyword = data["keyword"]
+                    return {"url": url, "keyword": keyword}
+    except FileNotFoundError:
+        print("Error: The file 'urls.json' was not found.")
+
+
+def scraper(url):
+    website = urlparse(url).netloc
 
     r = requests.get(url, headers=headers)
     if r.status_code != 200:
-        print(website.group(1), "Crawl failed.")
+        print("Scraping", website, "failed.")
+        return None
     else:
-        print(website.group(1), "Crawl Passed !.")
-
-
-for url in urls:
-    crawl(url)
+        print("Scraping", website, "Passed.")
+        return r.text

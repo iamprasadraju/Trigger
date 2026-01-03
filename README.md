@@ -1,4 +1,4 @@
-# Trigger Workflow
+# Trigger
 
 A personal automation project to monitor and trigger actions based on changes in `urls.json` or on a schedule, with optional manual execution and Telegram notifications.
 
@@ -81,4 +81,5 @@ uv pip install -r requirements.txt
 * Treat `github-workflow` as the production branch for automation.
 * Keep `main` for local testing and development.
 * Workflow runs on Ubuntu (`ubuntu-latest`) with a 10-minute timeout.
+
 

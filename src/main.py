@@ -1,12 +1,12 @@
+import asyncio
 import json
 import os
 from urllib.parse import urlparse
 
-import requests
+import aiohttp
 
 TELEGRAM_BOT_TOKEN = os.environ["TELEGRAM_BOT_TOKEN"]
 CHAT_ID = os.environ["CHAT_ID"]
-
 
 headers = {
     "User-Agent": (
@@ -31,16 +31,16 @@ def ReadJSON(file):
 
 
 # Send msg to Telegram bot, if conditions are met
-def TelegramBot(msg):
+async def TelegramBot(session, msg):
     api_https = f"https://api.telegram.org/bot{TELEGRAM_BOT_TOKEN}/sendMessage"
     payload = {"chat_id": CHAT_ID, "text": msg}
 
-    response = requests.post(api_https, data=payload)
-    if response.status_code == 200:
-        print("Notification sent!")
+    async with session.post(api_https, data=payload) as r:
+        if r.status == 200:
+            print("Notification sent!")
 
 
-def fetch(data):
+async def fetch(session, data):
     url = data["url"]
     keyword = data.get("keyword")
     value = data.get("value")
@@ -48,32 +48,41 @@ def fetch(data):
 
     website = urlparse(url).netloc
 
-    response = requests.get(url, headers=headers)
-    if response.status_code != 200:
-        print(f"Scraping {website} failed")
-        return
+    try:
+        async with session.get(url, headers=headers) as response:
+            if response.status != 200:
+                print(f"Scraping {website} failed")
+                return
 
-    html = response.text  # Scrapped html
-    print(f"Scraping {website} passed")
+            html = await response.text()  # Scrapped html
+            print(f"Scraping {website} passed")
 
-    trigger = False
+            trigger = False
 
-    if keyword:
-        trigger = keyword.lower() in html.lower()
+            if keyword:
+                trigger = keyword.lower() in html.lower()
 
-    if value:
-        trigger = value in html
+            if value:
+                trigger = value in html
 
-    if trigger:
-        msg = f"{description}\n{url}"
-        TelegramBot(msg)
+            if trigger:
+                msg = f"{description}\n{url}"
+                await TelegramBot(session, msg)
+
+    except asyncio.TimeoutError:
+        print(f"Timeout while scraping {website}")
+
+    except aiohttp.ClientError as e:
+        print(f"Error scraping {website}: {e}")
 
 
-def main():
+async def main():
     url_data = ReadJSON("urls.json")
-    for data in url_data:
-        fetch(data)
+
+    async with aiohttp.ClientSession() as session:
+        tasks = [fetch(session, data) for data in url_data]
+        await asyncio.gather(*tasks)
 
 
 if __name__ == "__main__":
-    main()
+    asyncio.run(main())
